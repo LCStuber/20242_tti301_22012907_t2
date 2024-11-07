@@ -9,13 +9,27 @@ const { PORT } = process.env
 app.post('/eventos', async (req, res) => {
   const evento = req.body
   try {
-    await axios.post('http://tti301-lembretes-clusterip-service:2000/eventos', evento)
+    await axios.post('http://tti301-logs-clusterip-service:2000/eventos', evento)
+  }
+  catch(err){}
+  try {
     await axios.post('http://tti301-lembretes-clusterip-service:4000/eventos', evento)
   }
   catch(err){}
-  // axios.post('http://localhost:5000/eventos', evento)
-  // axios.post("http://localhost:6000/eventos", evento)
-  // axios.post('http://localhost:7000/eventos', evento)
+  try{
+    await axios.post('http://tti301-observacoes-clusterip-service:5000/eventos', evento)
+  }
+  catch(err){
+  }
+  try{
+    await axios.post('http://tti301-consulta-clusterip-service:6000/eventos', evento)
+  }
+  catch(err){
+  }
+  try {
+    await axios.post('http://tti301-classificacao-clusterip-service:7000/eventos', evento)
+  }
+  catch (err) {}
   res.status(200).json({mensagem: 'ok'})
 })
 

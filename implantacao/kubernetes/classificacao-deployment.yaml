@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tti301-classificacao-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tti301-classificacao
+  template:
+    metadata:
+      labels:
+        app: tti301-classificacao
+    spec:
+      containers:
+        - name: tti301-classificacao
+          image: lcstuber/tti301-classificacao
+          ports:
+            - containerPort: 7000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: tti301-classificacao-clusterip-service
+spec:
+  selector:
+    app: tti301-classificacao
+  type: ClusterIP
+  ports:
+    - name: tti301-classificacao
+      protocol: TCP
+      port: 7000
+      targetPort: 7000
