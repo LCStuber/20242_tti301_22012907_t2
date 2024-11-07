@@ -27,7 +27,7 @@ app.post("/eventos", (req, res) => {
 
 app.listen(PORT, async () => {
   console.log(`Logs. ${PORT}`)
-  const resp = await axios.get('http://tti301-lembretes-clusterip-service:10000/eventos')
+  const resp = await axios.get('http://tti301-barramento-de-eventos-service:10000/eventos')
   resp.data.forEach((valor, indice, colecao) => {
     try{
       baseConsulta[++id] = {"tipo_evento": valor.type, "data_hora": new Date().toISOString()}

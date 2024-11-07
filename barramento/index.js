@@ -6,6 +6,8 @@ app.use(express.json())
 
 const { PORT } = process.env
 
+const eventos = []
+
 app.post('/eventos', async (req, res) => {
   const evento = req.body
   try {

@@ -2,6 +2,7 @@ require("dotenv").config()
 const express = require("express")
 const app = express()
 app.use(express.json())
+const axios = require('axios')
 
 const {PORT} = process.env
 
@@ -41,7 +42,7 @@ app.post("/eventos", (req, res) => {
 
 app.listen(PORT, async () => {
   console.log(`Consulta. ${PORT}`)
-  const resp = await axios.get('http://tti301-lembretes-clusterip-service:10000/eventos')
+  const resp = await axios.get('http://tti301-barramento-de-eventos-service:10000/eventos')
   resp.data.forEach((valor, indice, colecao) => {
     try{
       funções[valor.type](valor.payload)

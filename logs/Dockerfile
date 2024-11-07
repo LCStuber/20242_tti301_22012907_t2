@@ -4,7 +4,9 @@ WORKDIR /app
 
 COPY package.json .
 
-RUN npm install
+RUN npm config set strict-ssl false
+
+RUN npm install --force --log-level=verbose
 
 COPY . .
 

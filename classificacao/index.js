@@ -9,7 +9,7 @@ const palavraChave = 'importante'
 const funcoes = {
   ObservacaoCriada: (observacao) => {
     observacao.status = observacao.texto.includes(palavraChave) ? 'importante' : 'comum'
-    axios.post('http://tti301-lembretes-clusterip-service:10000/eventos', {
+    axios.post('http://tti301-barramento-de-eventos-service:10000/eventos', {
       type: 'ObservacaoClassificada',
       payload: observacao
     })
@@ -29,7 +29,7 @@ app.post('/eventos', (req, res) => {
 
 app.listen(PORT, async() => {
   console.log(`Classificação. Porta: ${PORT}.`)
-  const resp = await axios.get('http://tti301-lembretes-clusterip-service:10000/eventos')
+  const resp = await axios.get('http://tti301-barramento-de-eventos-service:10000/eventos')
   resp.data.forEach((valor, indice, colecao) => {
     try {
       funcoes[valor.type](valor.payload)
