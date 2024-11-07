@@ -9,6 +9,7 @@ const { PORT } = process.env
 app.post('/eventos', async (req, res) => {
   const evento = req.body
   try {
+    await axios.post('http://tti301-lembretes-clusterip-service:2000/eventos', evento)
     await axios.post('http://tti301-lembretes-clusterip-service:4000/eventos', evento)
   }
   catch(err){}

@@ -33,7 +33,7 @@ app.post("/eventos", (req, res) => {
     try{
         const evento = req.body
         console.log(evento)
-        funcoes[evento.type](evento.payload)  
+        funções[evento.type](evento.payload)  
       }
       catch(err){}
       res.json({msg: 'ok'})
@@ -44,7 +44,7 @@ app.listen(PORT, async () => {
   const resp = await axios.get('http://tti301-lembretes-clusterip-service:10000/eventos')
   resp.data.forEach((valor, indice, colecao) => {
     try{
-      funcoes[valor.type](valor.payload)
+      funções[valor.type](valor.payload)
     }
     catch(err){}
   })
